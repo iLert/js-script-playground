@@ -7,7 +7,7 @@ This Script can chnage a User Role with one command line. It also consider the u
 
 ## Requirerments:
 
-    **Node Version 18 or higher is required[NVM-Node](https://github.com/nvm-sh/nvm)**
+   **Node Version 18 or higher is required[NVM-Node](https://github.com/nvm-sh/nvm)**
 
 ## Usage 
 
