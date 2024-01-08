@@ -1,18 +1,14 @@
 # Ilert User Role Change Script
 
-## Description:
+<h2>📄Description:</h2> 
 
-This Script can chnage a User Role with one command line. It also consider the user Teams and chnage the role there too.
+This script has been designed to help with the management of role changes for a particular user. 
 
 
 <h2> ⚙️ Requirerments: </h2>
 
    **Node Version 18 or higher is required [NVM-Node](https://github.com/nvm-sh/nvm)**
-   
-   After Installation
-    ```
-    nvm use 18
-    ```
+    
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -20,6 +16,12 @@ This Script can chnage a User Role with one command line. It also consider the u
 
 ```
 git clone https://github.com/iLert/switch-user-role-script.git
+```
+
+<p>2. Set Node Version</p>
+
+```
+nvm use 18
 ```
 
 <p>2. Install Dependencies</p>
