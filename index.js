@@ -65,7 +65,7 @@ const main = async (useremail, role) => {
 }
 
 
-//Arguments syntax email={email} rol={role}
+//Arguments syntax email={email} role={role}
 try {
     const args = process.argv
     let email;
