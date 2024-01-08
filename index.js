@@ -22,7 +22,7 @@ const checkUserRole = async (user, role) => {
 }
 
 const getUsersTeams = async (user) => {
-    const teamsFromUser = await ilert.call("GET","/teams", {"member": user.id});
+    const teamsFromUser = await ilert.call("GET","/teams", {"members": user.id});
     return teamsFromUser;
 }
 
@@ -32,7 +32,7 @@ const removeUserFromTeams = async (teams, user) => {
     });
 }
 
-const changeUsersRole = async (user, role) => {
+const changeUserRole = async (user, role) => {
     if(roles.includes(role)) {
         user.role = role;
         const change = await ilert.call("PUT", user, `/users/${user.id}`);
@@ -56,12 +56,12 @@ const main = async (useremail, role) => {
             const teams = await getUsersTeams(user);
             const tempTeams = teams;
             const remove = await removeUserFromTeams(tempTeams);
-            const change = await changeUsersRole(user, role);
+            const change = await changeUserRole(user, role);
             if(checkUserRole(user)) {
                 const addUserToTeams = await addUserToSavedTeams(tempTeams, user);
             }
         }
-    }catch(error) {
+    } catch(error) {
         throw error;
     }
 }
