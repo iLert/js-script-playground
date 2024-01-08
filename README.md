@@ -5,9 +5,9 @@
 This script has been designed to help with the management of role changes for a particular user. 
 
 
-<h2> ⚙️ Requirerments: </h2>
+<h2> ⚙️ Requirements: </h2>
 
-   **Node Version 18 or higher is required [NVM-Node](https://github.com/nvm-sh/nvm)**
+   **Node version 18 or higher is required [NVM-Node](https://github.com/nvm-sh/nvm)**
     
 
 <h2>🛠️ Installation Steps:</h2>
