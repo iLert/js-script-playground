@@ -1,6 +1,8 @@
 const { ILert } = require("ilert");
 require("dotenv").config();
 
+if(!process.env.ILERT_API_KEY) throw new Error("It seem your Api key is missing!");
+
 const ilert = new ILert({
     apiKey: process.env.ILERT_API_KEY
 });
