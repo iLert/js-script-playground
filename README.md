@@ -2,37 +2,35 @@
 
 ## Description:
 
-This Script can 
+This Script can chnage a User Role with one command line. It also consider the user Teams and chnage the role there too.
 
 
 ## Requirerments:
 
-Node version
+    **Node Version 18 or higher is required[NVM-Node](https://github.com/nvm-sh/nvm)**
 
 ## Usage 
 
 ### 1. Clone Repository 
-    ```bash
-        git clone https://github.com/iLert/switch-user-role-script.git
+    ```sh
+    git clone https://github.com/iLert/switch-user-role-script.git
     ```
 
 ### 2. Install Dependencies via Terminal 
-    ```bash
-        npm install .
+    ```sh
+    npm install . 
     ```
 
 ### 3. Create .env 
 
 ### 4. Add Ilert API Key to .env
-    ```bash
-        ILERT_API_KEY="{YOUR_ILERT_API_KEY}"
-    ```
-
-### 5. Execute Script
-    ```bash
-        npm start email="test@test.com" role="USER"
+    ```sh
+    LERT_API_KEY="{YOUR_ILERT_API_KEY}"
     ```
 
 
+### Example Usage
+```sh
+npm start email="test@test.de" role="USER"
 
 
