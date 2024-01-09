@@ -1,38 +1,43 @@
 const { ILert } = require("ilert");
 require("dotenv").config();
 
-if(!process.env.ILERT_API_KEY) throw new Error("It seems your Api key is missing!");
-
+if(!process.env.ILERT_API_KEY) throw new Error("It seem your Api key is missing!");
 const ilert = new ILert({
     apiKey: process.env.ILERT_API_KEY
 });
 
 const roles = ["STAKEHOLDER", "RESPONDER", "USER", "ADMIN"];
+let tempTeams = [];
 
 const getUserByEmail = async (useremail) => {
-    const user = await ilert.call("POST", {email: useremail}, "/users/search-email");
+    const user = await ilert.call("POST", {email: useremail}, "/users/search-email", null);
     return user.data;
 }
 
 const checkUserRole = async (user, role) => {
+    console.log(user.role);
     if(user.role == role) {
         throw new Error("This User already got the role!");
     }
-    return false;
+    return;
 }
 
 const getUsersTeams = async (user) => {
-    const teamsFromUser = await ilert.call("GET","/teams", {"members": user.id});
-    return teamsFromUser;
+    const teamsFromUser = await ilert.call("GET", null ,"/teams", {"member": user.id});
+    return teamsFromUser.data.length >= 1 ? teamsFromUser.data : "User is in no Teams";
 }
 
 const removeUserFromTeams = async (teams, user) => {
-    await teams.map((team) => {
-        ilert.call("DELETE", `/teams/${team.id}/members/${user.id}`);
-    });
+    teams = Array.from(teams);
+    console.log(teams);
+    console.log(user);
+    await teams.forEach(element => {
+        ilert.call("DELETE", null ,`/teams/${element.id}/members/${user.id}`, null);
+        tempTeams.push(element);
+    });     
 }
 
-const changeUserRole = async (user, role) => {
+const changeUsersRole = async (user, role) => {
     if(roles.includes(role)) {
         user.role = role;
         const change = await ilert.call("PUT", user, `/users/${user.id}`);
@@ -44,24 +49,21 @@ const changeUserRole = async (user, role) => {
 }
 
 const addUserToSavedTeams = async (teams, user) => {
-    await teams.map((team) => {
-        ilert.call("POST", {user, role: user.role }, `/teams/${team.id}/members`);
+    teams = Array.from(teams);
+    await teams.forEach(element => {
+        ilert.call("POST", {user, role: user.role }, `/teams/${element.id}/members`); 
     });
 }
 
 const main = async (useremail, role) => {
     try {
         const user = await getUserByEmail(useremail);
-        if(checkUserRole(user)){
-            const teams = await getUsersTeams(user);
-            const tempTeams = teams;
-            const remove = await removeUserFromTeams(tempTeams);
-            const change = await changeUserRole(user, role);
-            if(checkUserRole(user)) {
-                const addUserToTeams = await addUserToSavedTeams(tempTeams, user);
-            }
-        }
-    } catch(error) {
+        const check = checkUserRole(user, role);
+        const teams = await getUsersTeams(user);
+        const remove = await removeUserFromTeams(teams, user);
+        const change = await changeUsersRole(user, role);
+        const addUserToTeams = await addUserToSavedTeams(tempTeams, user);
+    }catch(error) {
         throw error;
     }
 }
