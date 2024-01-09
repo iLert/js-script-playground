@@ -10,7 +10,7 @@ const roles = ["STAKEHOLDER", "RESPONDER", "USER", "ADMIN"];
 let tempTeams = [];
 
 const getUserByEmail = async (useremail) => {
-    const user = await ilert.call("POST", {email: useremail}, "/users/search-email", null);
+    const user = await ilert.call("POST", {email: useremail}, "/users/search-email");
     return user.data;
 }
 
@@ -32,7 +32,7 @@ const removeUserFromTeams = async (teams, user) => {
     console.log(teams);
     console.log(user);
     await teams.forEach(element => {
-        ilert.call("DELETE", null ,`/teams/${element.id}/members/${user.id}`, null);
+        ilert.call("DELETE", null ,`/teams/${element.id}/members/${user.id}`);
         tempTeams.push(element);
     });     
 }
