@@ -25,16 +25,12 @@ const checkUserRole = async (user, role) => {
 }
 
 const getUsersTeams = async (user) => {
-    const teamsFromUser = await ilert.call("GET", null ,"/teams", {"members": user.id});
-    if(!teamsFromUser.data) {
-        return null;
-    }else {
-        return teamsFromUser.data
-    }
+    let teamsFromUser = await ilert.call("GET", null ,"/teams", {"members": user.id});
+    const teamsFromUserArray = Array.from(teamsFromUser.data);
+    return teamsFromUserArray;
 }
 
 const removeUserFromTeams = async (teams, user) => {
-    teams = Array.from(teams);
     await teams.forEach(element => {
         ilert.call("DELETE", null ,`/teams/${element.id}/members/${user.id}`);
         if(!tempTeams.includes(element)) {
@@ -56,7 +52,6 @@ const changeUsersRole = async (user, role) => {
 }
 
 const addUserToSavedTeams = async (teams, user) => {
-    teams = Array.from(teams);
     await teams.forEach(element => {
         ilert.call("POST", {user, role: user.role }, `/teams/${element.id}/members`); 
         console.log(user.id + " added to " + element.name);
@@ -68,10 +63,10 @@ const main = async (useremail, role) => {
         const user = await getUserByEmail(useremail);
         const check = checkUserRole(user, role);
         const teams = await getUsersTeams(user);
-        if(teams) {
-             const remove = await removeUserFromTeams(teams, user);
-             const change = await changeUsersRole(user, role);
-             const addUserToTeams = await addUserToSavedTeams(tempTeams, user);
+        if(teams.length != 0) {
+            const remove = await removeUserFromTeams(teams, user);
+            const change = await changeUsersRole(user, role);
+            const addUserToTeams = await addUserToSavedTeams(tempTeams, user);
         }else {
             const change = await changeUsersRole(user, role);
             console.log("User Role was changed no Teams found");
