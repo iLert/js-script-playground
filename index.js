@@ -61,7 +61,7 @@ const addUserToSavedTeams = async (teams, user) => {
 const main = async (useremail, role) => {
     try {
         const user = await getUserByEmail(useremail);
-        const check = checkUserRole(user, role);
+        const check = await checkUserRole(user, role);
         const teams = await getUsersTeams(user);
         if(teams.length != 0) {
             const remove = await removeUserFromTeams(teams, user);
