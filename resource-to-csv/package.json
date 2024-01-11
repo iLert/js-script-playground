@@ -1,0 +1,19 @@
+{
+  "name": "ilert-resource-to-csv",
+  "version": "1.0.0",
+  "description": "A script to pull any API resource as CSV",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "CF",
+  "license": "MIT",
+  "dependencies": {
+    "ilert": "4.0.0",
+    "papaparse": "5.4.1"
+  },
+  "devDependencies": {
+    "dotenv": "16.3.1"
+  }
+}
