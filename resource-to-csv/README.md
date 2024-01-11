@@ -1,4 +1,4 @@
-# ilert user role changed script
+# ilert api resource to csv script
 
 This script helps you to grab a list of specific resources and store them into a CSV file.
 
